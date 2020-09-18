@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="./js/jquery-1.12.4.js"></script>
+    <script src="./js/mn.js"></script>
 </head>
 <style>
     .harde {
@@ -17,21 +19,27 @@
         background-color: violet;
         line-height: 80px;
     }
-    
+
+    li {
+        list-style: none;
+    }
+
     w {
         width: 1200px;
     }
-    
+
     * {
         margin: 0;
         padding: 0;
     }
-    
+
+    /* 手风琴 */
+
     ul {
         list-style: none;
         width: 2400px;
     }
-    
+
     #box {
         width: 1200px;
         height: 400px;
@@ -39,21 +47,106 @@
         margin: 100px auto;
         overflow: hidden;
     }
-    
+
     #box li {
         width: 240px;
         height: 400px;
         float: left;
     }
-    
+
     img {
         height: 100%;
         width: 100%;
+    }
+
+    /* 轮播图 */
+
+    .slider {
+        height: 500px;
+        width: 1200px;
+        margin: 100px auto;
+        position: relative;
+    }
+
+    .slider img {
+        height: 600px;
+    }
+
+    .slider ul li {
+        position: absolute;
+        display: none;
+    }
+
+    .slider ul li:first-child {
+        display: block;
+    }
+
+    .arrow {
+        display: none;
+    }
+
+    .slider:hover .arrow {
+        display: block;
+    }
+
+    .arrow-left,
+    .arrow-right {
+        font-family: "SimSun", "宋体";
+        width: 30px;
+        height: 60px;
+        background-color: rgba(0, 0, 0, 0.1);
+        position: absolute;
+        top: 50%;
+        margin-top: -30px;
+        cursor: pointer;
+        text-align: center;
+        line-height: 60px;
+        color: #fff;
+        font-weight: 700;
+        font-size: 30px;
+    }
+
+    .arrow-left:hover,
+    .arrow-right:hover {
+        background-color: rgba(0, 0, 0, .5);
+    }
+
+    .arrow-left {
+        left: 0;
+        display: block;
+    }
+
+    .arrow-right {
+        right: 0;
+        display: block;
+    }
+
+    #dy {
+        display: block;
+        width: 1200px;
+        position: absolute;
+        bottom: -80px;
+        left: 50%;
+        transform: translateX(-32%);
+    }
+
+    .slider ol li {
+        width: 40px;
+        height: 40px;
+        background: floralwhite;
+        border-radius: 20px;
+        float: left;
+        margin-left: 50px;
+    }
+
+    #dy .active {
+        background: red;
     }
 </style>
 
 <body>
     <div class="harde">美女图片</div>
+    <!-- 手风琴 -->
     <div id="box">
         <ul>
             <li></li>
@@ -63,43 +156,47 @@
             <li></li>
         </ul>
     </div>
-    <div class="w"> <img src="./imgags/16.jpg" alt=""></div>
+    <!-- 手风琴结束 -->
+    <!-- 轮播图 -->
+    <div class="slider">
+        <!--图片容器  8图 -->
+        <ul>
+            <li>
+                <a href="#"><img src="./imgags/111 (1).jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./imgags/111 (2).jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./imgags/111 (3).jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./imgags/111 (4).jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./imgags/01.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./imgags/02.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./imgags/03.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="./imgags/04.jpg" alt=""></a>
+            </li>
+        </ul>
+        <!--箭头-->
+        <ol id="dy">
 
-    <script src="./js/jquery-1.12.4.js"></script>
-    <script>
-        $(function() {
-            //需求1:给每一个li添加img(内容图片).
-            //需求2:给每一个li设置鼠标移入事件:当前li的宽度变成800,其他兄弟li宽度变成100
-            //需求3:鼠标移出大盒子,所有的li的宽度都变成默认的240
+        </ol>
+        <div class="arrow">
+            <span class="arrow-left">&lt;</span>
+            <span class="arrow-right">&gt;</span>
+        </div>
+    </div>
+    <!-- 轮播图结束 -->
 
-
-            //获取到所有的li标签
-            var $lis = $('#box li');
-            //需求1: 
-            $lis.each(function(index, ele) {
-                $(this).html('<img src="./imgags/1' + (index + 1) + '.jpg" alt="">'); //jQuery中的html()方法和原生js中的innerHTML一样的
-            });
-
-            //需求2: 
-            $lis.mouseenter(function() {
-                $(this).stop(true, false).animate({
-                    width: 800
-                }, 500).siblings('li').animate({
-                    width: 100
-                }, 500);
-            });
-
-            //需求3:
-            $('#box').mouseleave(function() {
-                $(this).find('li').stop(true, false).animate({
-                    width: 240
-                }, 200);
-            });
-
-
-
-        });
-    </script>
 </body>
 
 </html>

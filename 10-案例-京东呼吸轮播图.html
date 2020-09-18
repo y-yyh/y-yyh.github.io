@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>动画-案例《轮播图》</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .slider {
+            height: 340px;
+            width: 790px;
+            margin: 100px auto;
+            position: relative;
+        }
+        
+        .slider ul li {
+            position: absolute;
+            display: none;
+        }
+        
+        .slider ul li:first-child {
+            display: block;
+        }
+        
+        .arrow {
+            display: none;
+        }
+        
+        .slider:hover .arrow {
+            display: block;
+        }
+        
+        .arrow-left,
+        .arrow-right {
+            font-family: "SimSun", "宋体";
+            width: 30px;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 50%;
+            margin-top: -30px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 60px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 30px;
+        }
+        
+        .arrow-left:hover,
+        .arrow-right:hover {
+            background-color: rgba(0, 0, 0, .5);
+        }
+        
+        .arrow-left {
+            left: 0;
+        }
+        
+        .arrow-right {
+            right: 0;
+        }
+        
+        #dy {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .slider ol li {
+            width: 16px;
+            height: 16px;
+            background: floralwhite;
+            border-radius: 8px;
+            float: left;
+            margin-left: 15px;
+        }
+        
+        #dy .active {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider">
+        <!--图片容器  8图 -->
+        <ul>
+            <li>
+                <a href="#"><img src="images/jd/1.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/jd/2.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/jd/3.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/jd/4.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/jd/5.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/jd/6.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/jd/7.jpg" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/jd/8.jpg" alt=""></a>
+            </li>
+        </ul>
+        <!--箭头-->
+        <ol id="dy">
+
+        </ol>
+        <div class="arrow">
+            <span class="arrow-left">&lt;</span>
+            <span class="arrow-right">&gt;</span>
+        </div>
+    </div>
+
+    <script src="jquery-1.12.4.js"></script>
+    <script>
+        $(function() {
+
+
+            // 创建小圆点
+            let $ullis = $('.slider  li');
+            for (let i = 0; i < $ullis.length; i++) {
+                let $oli = $('<li></li>');
+                // 将新建的li添加的ol中
+                $('#dy').append($oli);
+            }
+            // 给第一个li添加类
+            $('#dy li').eq(0).addClass('active');
+
+            $('#dy li').mouseenter(function() {
+
+                //获取当前鼠标移入的li标签的索引
+                let idx = $(this).index();
+                //把当前的li添加类,并移除其它兄弟的类
+                $(this).addClass('active').siblings('li').removeClass('active');
+                picIndex = idx;
+                //把索引对应的这张图片动画显示 (fadeIn), 其他的图片动画隐藏(fadeOut)
+                $('.slider  li').eq(idx).fadeIn(500).siblings('li').fadeOut(500);
+            });
+
+            //声明一个变量,用来记录显示图片的索引
+            let picIndex = 0;
+
+            //给右边焦点设置一个点击事件. 
+            $('.arrow-right').click(function() {
+                picIndex++;
+                //判断
+                if (picIndex == 8) {
+                    picIndex = 0;
+                }
+                console.log(picIndex);
+                //把索引对应的这张图片动画显示(fadeIn),其他的图片动画隐藏(fadeOut)
+                $('.slider  li').eq(picIndex).fadeIn(500).siblings('li').fadeOut(500);
+                idx = picIndex;
+                //把当前的li添加类,并移除其它兄弟的类
+                $('#dy li').eq(idx).addClass('active').siblings('li').removeClass('active');
+            });
+
+            //左边焦点设置一个点击事件
+            $('.arrow-left').click(function() {
+                picIndex--;
+                //判断
+                if (picIndex < 0) {
+                    picIndex = 7;
+                }
+                console.log(picIndex);
+                //把索引对应的这张图片动画显示(fadeIn),其他的图片动画隐藏(fadeOut)
+                $('.slider  li').eq(picIndex).fadeIn(500).siblings('li').fadeOut(500);
+                idx = picIndex;
+                //把当前的li添加类,并移除其它兄弟的类
+                $('#dy li').eq(idx).addClass('active').siblings('li').removeClass('active');
+
+            });
+
+
+
+
+
+
+
+        });
+    </script>
+</body>
+
+</html>
